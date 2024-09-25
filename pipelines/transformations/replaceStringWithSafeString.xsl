@@ -17,7 +17,7 @@
 
   <!-- Replace all instances of xs:string with evt:SafeString -->
 	<xsl:template match="@type[.='xs:string']">
-		<xsl:attribute name="{name()}">dtn:SafeString</xsl:attribute>
+		<xsl:attribute name="{name()}">det:SafeString</xsl:attribute>
 	</xsl:template>
 
 </xsl:stylesheet>

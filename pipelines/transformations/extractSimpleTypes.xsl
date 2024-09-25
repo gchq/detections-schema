@@ -39,7 +39,7 @@
             </xsl:variable>
 
             <xsl:attribute name="type"
-                           select="concat('dtn:', $ancestorNames, 'SimpleType')"/>
+                           select="concat('det:', $ancestorNames, 'SimpleType')"/>
             <xsl:apply-templates select="node()[name() != 'xs:simpleType'] | @*"/>
         </xsl:copy>
     </xsl:template>

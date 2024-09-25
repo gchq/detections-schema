@@ -14,7 +14,7 @@
   ~ See the License for the specific language governing permissions and
   ~ limitations under the License.
 -->
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:dtn="detection:1" elementFormDefault="qualified" attributeFormDefault="unqualified" targetNamespace="detection:1" id="detection-v1.1" version="1.1">
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:det="detection:1" elementFormDefault="qualified" attributeFormDefault="unqualified" targetNamespace="detection:1" id="detection-v1.1" version="1.1">
   <xs:element name="detections">
     <xs:complexType>
       <xs:annotation>
@@ -27,7 +27,7 @@
           </xs:annotation>
           <xs:complexType>
             <xs:sequence>
-              <xs:element name="detectTime" type="dtn:DateTimeSimpleType" minOccurs="1" maxOccurs="1">
+              <xs:element name="detectTime" type="det:DateTimeSimpleType" minOccurs="1" maxOccurs="1">
                 <xs:annotation>
                   <xs:documentation>When the detection occurred.</xs:documentation>
                 </xs:annotation>
@@ -163,7 +163,7 @@
                   </xs:simpleContent>
                 </xs:complexType>
               </xs:element>
-              <xs:element name="linkedEvents" type="dtn:LinkedEventsComplexType" minOccurs="0" maxOccurs="1">
+              <xs:element name="linkedEvents" type="det:LinkedEventsComplexType" minOccurs="0" maxOccurs="1">
                 <xs:annotation>
                   <xs:documentation>
                     Sequence of events that already exist within Stroom and that contributed in some manner towards the creation of this detection.
@@ -189,7 +189,7 @@
       <xs:documentation>Any associated events that exist elsewhere in Stroom.</xs:documentation>
     </xs:annotation>
     <xs:sequence>
-      <xs:element name="linkedEvent" minOccurs="0" maxOccurs="unbounded" type="dtn:LinkedEventComplexType">
+      <xs:element name="linkedEvent" minOccurs="0" maxOccurs="unbounded" type="det:LinkedEventComplexType">
         <xs:annotation>
           <xs:documentation>
             An event that already exists within Stroom and that contributed in some manner towards the creation of this detection.

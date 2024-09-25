@@ -53,7 +53,7 @@ build_schema_variants() {
 
   pushd "${LIB_DIR}"
   echo -e "${GREEN}Downloading ${BLUE}${TRANSFORMER_JAR_URL}${NC}"
-  wget "${TRANSFORMER_JAR_URL}"
+  wget --quiet "${TRANSFORMER_JAR_URL}"
   popd
 
   # Run the transformations

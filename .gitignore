@@ -2,6 +2,7 @@
 /lib/
 /pipelines/generated/
 /pipelines/downloaded/
+/release_artefacts
 
 # IntelliJ
 # Here we ignore everything and create exceptions for what we want to share.

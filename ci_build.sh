@@ -69,8 +69,6 @@ build_schema_variants() {
   if [[ "${BUILD_IS_SCHEMA_RELEASE}" = "true" ]]; then
     echo -e "${GREEN}Copying build artefacts for release${NC}"
 
-    echo "Deleting generated schemas that are not release artifacts"
-
     # Copy the schemas to the release dir for upload to gh releases
     cp "${GENERATED_DIR}"/detection-v*-safe.xsd "${RELEASE_ARTEFACTS_DIR}/"
     cp "${GENERATED_DIR}"/detection-v*.xsd "${RELEASE_ARTEFACTS_DIR}/"
@@ -122,8 +120,9 @@ main() {
   local LIB_DIR="${BUILD_DIR}/lib"
   local SOURCE_SCHEMA_FILE="detection.xsd"
   local TRANSFORMER_JAR_VERSION="v4.1.0"
+  local TRANSFORMER_JAR_URL_BASE="https://github.com/gchq/event-logging-schema/releases/download"
   local TRANSFORMER_JAR_FILENAME="event-logging-transformer-${TRANSFORMER_JAR_VERSION}-all.jar"
-  local TRANSFORMER_JAR_URL="https://github.com/gchq/event-logging-schema/releases/download/${TRANSFORMER_JAR_VERSION}/${TRANSFORMER_JAR_FILENAME}"
+  local TRANSFORMER_JAR_URL="${TRANSFORMER_JAR_URL_BASE}/${TRANSFORMER_JAR_VERSION}/${TRANSFORMER_JAR_FILENAME}"
 
   dump_build_info
 
@@ -137,10 +136,12 @@ main() {
   build_schema_variants
 
   if [[ "${BUILD_IS_SCHEMA_RELEASE}" = "true" ]]; then
-    prepare_for_schema_release
+    echo -e "${GREEN}Dumping contents of ${BLUE}${RELEASE_ARTEFACTS_DIR}${NC}"
+    ls -l "${RELEASE_ARTEFACTS_DIR}"
   else
     echo -e "${GREEN}Not a release so skipping releaase preparation${NC}"
-    # Clear out any artefacts to be on the safe side
+    # Clear out any artefacts to make sure nothing
+    # can get uploaded to github
     rm -rf "${RELEASE_ARTEFACTS_DIR:?}/*"
   fi
 }

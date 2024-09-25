@@ -58,6 +58,7 @@ pipelines:
       - "addSafeStringSimpleType.xsl"
       - "replaceStringWithSafeString.xsl"
       - "removeAnyContentComplexType.xsl"
+      - "orderElements.xsl"
       - "limitOccurrence.xsl"
 
   # This pipeline is for use in pipeline development, e.g. only include

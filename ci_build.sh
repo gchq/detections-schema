@@ -39,7 +39,7 @@ validate_source_schema() {
   xmllint \
     --noout \
     --schema http://www.w3.org/2001/XMLSchema.xsd \
-    "${BUILD_DIR}/event-logging.xsd"
+    "${BUILD_DIR}/${SOURCE_SCHEMA_FILE}"
   echo "::endgroup::"
 
   echo -e "::group::Validating versions in schema file"
@@ -53,7 +53,7 @@ build_schema_variants() {
   java \
     -jar lib/event-logging-transformer-v4.1.0-all.jar \
     ./pipelines \
-    ./detection.xsd
+    "./${SOURCE_SCHEMA_FILE}"
 
   GENERATED_DIR="./pipelines/generated"
     
@@ -85,7 +85,9 @@ dump_build_info() {
   echo -e "BUILD_IS_SCHEMA_RELEASE:      [${GREEN}${BUILD_IS_SCHEMA_RELEASE}${NC}]"
   echo -e "RELEASE_ARTEFACTS_DIR:        [${GREEN}${RELEASE_ARTEFACTS_DIR}${NC}]"
   echo -e "SCHEMA_VERSION:               [${GREEN}${SCHEMA_VERSION}${NC}]"
+  echo -e "SOURCE_SCHEMA_FILE:           [${GREEN}${SOURCE_SCHEMA_FILE}${NC}]"
 
+  echo -e "\nJava version:"
   java --version
 
   echo "::endgroup::"
@@ -107,6 +109,7 @@ main() {
 
   local RELEASE_ARTEFACTS_DIR_NAME="release_artefacts"
   local RELEASE_ARTEFACTS_DIR="${BUILD_DIR}/${RELEASE_ARTEFACTS_DIR_NAME}"
+  local SOURCE_SCHEMA_FILE="detection.xsd"
 
   dump_build_info
 

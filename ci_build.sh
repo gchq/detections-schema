@@ -49,9 +49,16 @@ validate_source_schema() {
 
 build_schema_variants() {
   echo -e "::group::Running schema transformations"
+  # Download the jar
+
+  pushd "${LIB_DIR}"
+  echo -e "${GREEN}Downloading ${BLUE}${TRANSFORMER_JAR_URL}${NC}"
+  wget "${TRANSFORMER_JAR_URL}"
+  popd
+
   # Run the transformations
   java \
-    -jar lib/event-logging-transformer-v4.1.0-all.jar \
+    -jar "${LIB_DIR}/${TRANSFORMER_JAR_FILENAME}" \
     ./pipelines \
     "./${SOURCE_SCHEMA_FILE}"
 
@@ -86,6 +93,7 @@ dump_build_info() {
   echo -e "RELEASE_ARTEFACTS_DIR:        [${GREEN}${RELEASE_ARTEFACTS_DIR}${NC}]"
   echo -e "SCHEMA_VERSION:               [${GREEN}${SCHEMA_VERSION}${NC}]"
   echo -e "SOURCE_SCHEMA_FILE:           [${GREEN}${SOURCE_SCHEMA_FILE}${NC}]"
+  echo -e "TRANSFORMER_JAR_FILENAME      [${GREEN}${TRANSFORMER_JAR_FILENAME}${NC}]"
 
   echo -e "\nJava version:"
   java --version
@@ -109,12 +117,17 @@ main() {
 
   local RELEASE_ARTEFACTS_DIR_NAME="release_artefacts"
   local RELEASE_ARTEFACTS_DIR="${BUILD_DIR}/${RELEASE_ARTEFACTS_DIR_NAME}"
+  local LIB_DIR="${BUILD_DIR}/lib"
   local SOURCE_SCHEMA_FILE="detection.xsd"
+  local TRANSFORMER_JAR_VERSION="v4.1.0"
+  local TRANSFORMER_JAR_FILENAME="event-logging-transformer-${TRANSFORMER_JAR_VERSION}-all.jar"
+  local TRANSFORMER_JAR_URL="https://github.com/gchq/event-logging-schema/releases/download/${TRANSFORMER_JAR_VERSION}/${TRANSFORMER_JAR_FILENAME}"
 
   dump_build_info
 
   echo "::group::Create dirs"
   create_dir "${RELEASE_ARTEFACTS_DIR}"
+  create_dir "${LIB_DIR}"
   echo "::endgroup::"
 
   validate_source_schema

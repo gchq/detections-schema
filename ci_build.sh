@@ -108,6 +108,8 @@ create_dir() {
 }
 
 main() {
+  setup_echo_colours
+
   if [ -n "$BUILD_TAG" ]; then
       #Tagged commit so use that as our stroom version, e.g. v3.0.0
       SCHEMA_VERSION="${BUILD_TAG}"

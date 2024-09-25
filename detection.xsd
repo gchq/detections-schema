@@ -14,7 +14,7 @@
   ~ See the License for the specific language governing permissions and
   ~ limitations under the License.
 -->
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:det="detection:1" elementFormDefault="qualified" attributeFormDefault="unqualified" targetNamespace="detection:1" id="detection-v1.1" version="1.1">
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:det="detection:1" elementFormDefault="qualified" attributeFormDefault="unqualified" targetNamespace="detection:1" id="detection-v1.1.1" version="1.1.1">
   <xs:element name="detections">
     <xs:complexType>
       <xs:annotation>

@@ -1,0 +1,80 @@
+name: Full CI Build (and Release)
+
+on:
+  push:
+    branches:
+      - '**'
+  pull_request:
+
+jobs:
+  build-project:
+    runs-on: ubuntu-24.04
+    env:
+      # Static env vars
+
+      # Github runners limited to 2 cores, 7Gb RAM
+      # https://docs.github.com/en/actions/using-github-hosted-runners/about-github-hosted-runners#supported-runners-and-hardware-resources
+      MAX_WORKERS: 3
+      # Fixed ssh-agent socket so multiple steps can use the same agent
+      # if needs be. Used by update_gh_pages.sh
+      SSH_AUTH_SOCK: "/tmp/ssh-agent-stroom.sock"
+    steps:
+
+      - name: Install dependencies
+        id: install_dependencies
+        run: |
+          # libxml2-utils needed for xmllint
+          sudo apt-get update
+          sudo apt-get install -y libxml2-utils
+
+      - name: Checkout code
+        id: checkout_code
+        uses: actions/checkout@v3
+        with:
+          # Set this so it gets the annotated commit, not the commit being tagged.
+          # Which means we can get the release msg
+          # See https://github.com/actions/runner/issues/712
+          ref: ${{ github.ref }} 
+
+      - name: Setup Java
+        id: setup_java
+        uses: actions/setup-java@v4
+          with:
+            distribution: 'temurin'
+            java-version: '21'
+
+      - name: Set Environment Variables
+        id: set_env_var
+        env:
+          # Needed for authenticated api calls to avoid rate limit
+          # Github provides this temporary token automatically
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          ${GITHUB_WORKSPACE}/.github/workflows/scripts/setup_env_vars.sh
+
+        # Separate step to show what is visible across steps
+      - name: Build Environment Info
+        id: build_info
+        run: |
+          ${ACTIONS_SCRIPTS_DIR}/dump_env_vars.sh
+
+      - name: Run full build
+        id: run_build
+        env:
+          # Needed for authenticated api calls to avoid rate limit
+          # Github provides this temporary token automatically
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          pushd "${BUILD_DIR}" > /dev/null
+          echo -e "${GREEN}Running ${BLUE}ci_build.sh${NC}"
+          ./ci_build.sh
+          echo -e "${GREEN}Finished running build script${NC}"
+
+      - name: Release to GitHub
+        id: create_release
+        if: ${{ env.BUILD_IS_SCHEMA_RELEASE == 'true' }}
+        env:
+          # Github provided secret
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: "${ACTIONS_SCRIPTS_DIR}/create_github_release.sh"
+

@@ -39,9 +39,9 @@ jobs:
       - name: Setup Java
         id: setup_java
         uses: actions/setup-java@v4
-          with:
-            distribution: 'temurin'
-            java-version: '21'
+        with:
+          distribution: 'temurin'
+          java-version: '21'
 
       - name: Set Environment Variables
         id: set_env_var

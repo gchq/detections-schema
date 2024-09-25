@@ -142,7 +142,7 @@ main() {
     echo -e "${GREEN}Dumping contents of ${BLUE}${RELEASE_ARTEFACTS_DIR}${NC}"
     ls -l "${RELEASE_ARTEFACTS_DIR}"
   else
-    echo -e "${GREEN}Not a release so skipping releaase preparation${NC}"
+    echo -e "${GREEN}Not a release so skipping release preparation${NC}"
     # Clear out any artefacts to make sure nothing
     # can get uploaded to github
     rm -rf "${RELEASE_ARTEFACTS_DIR:?}/*"

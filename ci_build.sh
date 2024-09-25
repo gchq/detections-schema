@@ -64,6 +64,7 @@ build_schema_variants() {
 
   GENERATED_DIR="./pipelines/generated"
     
+  echo -e "${GREEN}Dumping contents of ${BLUE}${GENERATED_DIR}${NC}"
   ls -l "${GENERATED_DIR}"
 
   if [[ "${BUILD_IS_SCHEMA_RELEASE}" = "true" ]]; then
@@ -135,9 +136,11 @@ main() {
   # Run the gradle build to generate the different forms of the schema
   build_schema_variants
 
+  echo -e "${GREEN}Dumping contents of ${BLUE}${RELEASE_ARTEFACTS_DIR}${NC}"
+  ls -l "${RELEASE_ARTEFACTS_DIR}"
+
   if [[ "${BUILD_IS_SCHEMA_RELEASE}" = "true" ]]; then
-    echo -e "${GREEN}Dumping contents of ${BLUE}${RELEASE_ARTEFACTS_DIR}${NC}"
-    ls -l "${RELEASE_ARTEFACTS_DIR}"
+    echo -e "${GREEN}This is a release build${NC}"
   else
     echo -e "${GREEN}Not a release so skipping releaase preparation${NC}"
     # Clear out any artefacts to make sure nothing

@@ -17,5 +17,5 @@ DO NOT ADD CHANGES HERE - ADD THEM USING log_change.sh
 * First formal release of this schema in this GitHub repo.
 
 
-[Unreleased]: https://github.com/gchq/detections-schema/compare/v1.1.1...master
+[Unreleased]: https://github.com/gchq/detections-schema/compare/v1.1.1...main
 [v1.1.1]: https://github.com/gchq/detections-schema/compare/v1.1.1...v1.1.1

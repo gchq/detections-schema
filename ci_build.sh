@@ -135,6 +135,8 @@ main() {
   local RELEASE_ARTEFACTS_DIR="${BUILD_DIR}/${RELEASE_ARTEFACTS_DIR_NAME}"
   local LIB_DIR="${BUILD_DIR}/lib"
   local SOURCE_SCHEMA_FILE_NAME="detection.xsd"
+  # Although this repo is event-logging-schema, it is used for the transformer jar
+  # so has nothing to do with the event-logging schema.
   local TRANSFORMER_JAR_VERSION="v4.1.0"
   local TRANSFORMER_JAR_URL_BASE="https://github.com/gchq/event-logging-schema/releases/download"
   local TRANSFORMER_JAR_FILENAME="event-logging-transformer-${TRANSFORMER_JAR_VERSION}-all.jar"

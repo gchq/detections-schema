@@ -8,7 +8,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ## [Unreleased]
 
 ~~~
-DO NOT ADD CHANGES HERE - Add them using log_change.sh, view them with './log_change.sh list'
+DO NOT ADD CHANGES HERE - ADD THEM USING log_change.sh
 ~~~
 
 
+## [v1.1.1] - 2025-01-20
+
+* First formal release of this schema in this GitHub repo.
+
+
+[Unreleased]: https://github.com/gchq/detections-schema/compare/v1.1.1...master
+[v1.1.1]: https://github.com/gchq/detections-schema/compare/v1.1.1...v1.1.1
